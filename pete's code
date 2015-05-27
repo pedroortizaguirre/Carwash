@@ -1,0 +1,55 @@
+# user= User.order('name').map(&:id)
+    # start_date= Date.today
+    
+    # if Calendar.last
+    #   start_date=Calendar.last.date
+    #   #Checar VVVVV
+    #   #last_item_in_array= Calendar.last.user_id+1
+      
+    #   #if Calendar.last.user_id == 1 || Calendar.last.user_id == 2 || Calendar.last.user_id == 3 || Calendar.last.user_id == 4
+    #    # user= (last_item_in_array..User.last.id)
+    #    # puts "#{user.inspect} !!!!!!!!!!!!!!!!"
+    #   #end
+    #   #^^^^^^^
+
+    #     latest_users= Calendar.last(5).map(&:user_id)
+    #     user_array=user.slice!(0..5)
+    #     puts "#{latest_users.inspect}@$@$@$@$"
+    #     puts "#{user_array.inspect}"
+
+    #     array=(latest_users+user_array).uniq!
+        
+    #     new_first_array_number= array.index(array.last)
+
+    #     new_array=[array.last..user.last]
+    #     puts"#{new_first_array_number.inspect}^^^^^^^^^^^^^"
+
+    # end
+
+    # user.each_slice(5) do |u|
+      
+    #   @Display=u
+    #   reload_users=User.order('name').map(&:id)
+    #   start_date += 1    
+    #   # puts "#{start_date.inspect}##################################" 
+
+    #   if start_date.workday? == false
+    #    start_date += 2
+    #  end
+
+    #  if u.count < 5 
+    #   items_in_array = 5-u.count          
+    #   cc=reload_users.cycle.take(items_in_array)
+    #   @Display=u+cc
+    #  end
+
+    # @Display.each do |s|
+    #         # @save_to_calendar = Calendar.new
+    #         # @save_to_calendar.user_id=s
+    #         # @save_to_calendar.date=start_date
+    #         # @save_to_calendar.save
+    #         # puts "#{s.inspect+ " "+ start_date.inspect}************************************"
+    #       end
+
+    #       # puts "#{@Display.inspect+ " "+ start_date.inspect}<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+    #     end
