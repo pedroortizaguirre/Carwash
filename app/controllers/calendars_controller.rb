@@ -42,79 +42,85 @@ class CalendarsController < ApplicationController
           collaborator = collaborators.shift
           
           if(collaborator!=nil)
-          carwash = Calendar.new
-          carwash.user_id = collaborator
-          carwash.date = current_date
-          carwash.save        
-          puts "#{collaborator.inspect+" "+current_date.inspect}"
+            carwash = Calendar.new
+            carwash.user_id = collaborator
+            carwash.date = current_date
+            carwash.save        
+            puts "#{collaborator.inspect+" "+current_date.inspect}"
           end
 
         end
-
       end
-      current_date += 1
+      current_date += 1  
     end
 
     while(collaborators.count > 0) do
+
+     weekdays=current_date.weekday?
+     if weekdays==false
+        current_date += 2
+      end
+     carwash_available_spots.times do
       
-      carwash_available_spots.times do
-        collaborator = collaborators.shift
-        if(collaborator!=nil)
+      collaborator = collaborators.shift
+
+      if(collaborator!=nil)
         carwash = Calendar.new
         carwash.user_id = collaborator
         carwash.date = current_date
-        carwash.save        
-        puts "#{collaborator.inspect+" "+current_date.inspect}"
-        end
-      end
-      current_date += 1
+        carwash.save  
+       end
+
     end
+      current_date += 1       
 
-    
-
-    redirect_to :controller => 'calendars', :action => 'index'
   end
 
 
 
-
-  def create
-    @calendar = Calendar.new(calendar_params)
-
-    respond_to do |format|
-      if @calendar.save
-        format.html { redirect_to @calendar, notice: 'Calendar was successfully created.' }
-        format.json { render :show, status: :created, location: @calendar }
-      else
-        format.html { render :new }
-        format.json { render json: @calendar.errors, status: :unprocessable_entity }
-      end
-    end
-
-  end
+  redirect_to :controller => 'calendars', :action => 'index'
+end
 
 
-  def update
-    respond_to do |format|
-      if @calendar.update(calendar_params)
-        format.html { redirect_to @calendar, notice: 'Calendar was successfully updated.' }
-        format.json { render :show, status: :ok, location: @calendar }
-      else
-        format.html { render :edit }
-        format.json { render json: @calendar.errors, status: :unprocessable_entity }
-      end
+
+
+def create
+  @calendar = Calendar.new(calendar_params)
+
+  respond_to do |format|
+    if @calendar.save
+      format.html { redirect_to @calendar, notice: 'The Carwash schedule was successfully created.' }
+      format.json { render :show, status: :created, location: @calendar }
+    else
+      format.html { render :new }
+      format.json { render json: @calendar.errors, status: :unprocessable_entity }
     end
   end
 
-  def destroy
-    @calendar.destroy
-    respond_to do |format|
-      format.html { redirect_to calendars_url, notice: 'Calendar was successfully destroyed.' }
-      format.json { head :no_content }
+end
+
+
+def update
+  respond_to do |format|
+    if @calendar.update(calendar_params)
+      format.html { redirect_to @calendar, notice: 'Calendar was successfully updated.' }
+      format.json { render :show, status: :ok, location: @calendar }
+    else
+      format.html { render :edit }
+      format.json { render json: @calendar.errors, status: :unprocessable_entity }
     end
   end
+end
 
-  private
+def destroy
+  @calendar.destroy
+  respond_to do |format|
+    format.html { redirect_to calendars_url, notice: 'Calendar was successfully destroyed.' }
+    format.json { head :no_content }
+  end
+end
+
+private
     # Use callbacks to share common setup or constraints between actions.
     def set_calendar
       @calendar = Calendar.find(params[:id])

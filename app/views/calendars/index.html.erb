@@ -16,7 +16,7 @@
     <% if calendar.user_id != nil %>
       <tr>
         <td><%= calendar.date.strftime('%d'+" "+'%b'+" "+'%Y') %></td>
-        <td><b>(<%= calendar.user.id %>)</b> <%= calendar.user.name+" "+calendar.user.lastname  %></td>
+        <td><b><%= @counter %>(<%= calendar.user.id %>)</b> <%= calendar.user.name+" "+calendar.user.lastname  %></td>
         <!-- <td><%= link_to 'Show', calendar %></td>
         <td><%= link_to 'Edit', edit_calendar_path(calendar) %>
         </td>
