@@ -38,47 +38,50 @@ class CalendarsController < ApplicationController
       #fill missing spots
       if missing_spots>1
         missing_spots.times do
-
-          collaborator = collaborators.shift
-          
-          if(collaborator!=nil)
-            carwash = Calendar.new
-            carwash.user_id = collaborator
-            carwash.date = current_date
-            carwash.save        
-            puts "#{collaborator.inspect+" "+current_date.inspect}"
-          end
-
+         weekdays=current_date.weekday?
+         if weekdays==false
+          current_date += 2
         end
+        collaborator = collaborators.shift
+        
+        if(collaborator!=nil)
+          carwash = Calendar.new
+          carwash.user_id = collaborator
+          carwash.date = current_date
+          carwash.save        
+          puts "#{collaborator.inspect+" "+current_date.inspect}"
+        end
+
       end
-      current_date += 1  
     end
-
-    while(collaborators.count > 0) do
-
-     weekdays=current_date.weekday?
-     if weekdays==false
-        current_date += 2
-      end
-     carwash_available_spots.times do
-      
-      collaborator = collaborators.shift
-
-      if(collaborator!=nil)
-        carwash = Calendar.new
-        carwash.user_id = collaborator
-        carwash.date = current_date
-        carwash.save  
-       end
-
-    end
-      current_date += 1       
-
+    current_date += 1  
   end
 
+  while(collaborators.count > 0) do
+
+   weekdays=current_date.weekday?
+   if weekdays==false
+    current_date += 2
+  end
+  carwash_available_spots.times do
+    
+    collaborator = collaborators.shift
+
+    if(collaborator!=nil)
+      carwash = Calendar.new
+      carwash.user_id = collaborator
+      carwash.date = current_date
+      carwash.save  
+    end
+
+  end
+  current_date += 1       
+
+end
 
 
-  redirect_to :controller => 'calendars', :action => 'index'
+
+redirect_to :controller => 'calendars', :action => 'index'
 end
 
 
